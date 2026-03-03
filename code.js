@@ -1,24 +1,38 @@
-import DiceBox from "https://unpkg.comdice-box.js";
+import DiceBox from "https://unpkg.com/@3d-dice/dice-box@1.1.3/dist/dice-box.es.min.js";
 addEventListener("load", (event) => {
 
-// 1. Initialize the box - FIXED PATHS
-const Box = new DiceBox("#dicebox", {
-  assetPath: "https://unpkg.com",
-  origin: "https://unpkg.com"
+
+
+
+
+
+
+let Box = new DiceBox({
+  assetPath: "assets/",
+  origin: "https://unpkg.com/@3d-dice/dice-box@1.1.3/dist/",
+  container: "#dice-box",
+  theme: "diceOfRolling",
+  themeColor: "#feea03",
+  externalThemes: {
+    diceOfRolling: "https://www.unpkg.com/@3d-dice/theme-dice-of-rolling@0.2.1",
+  },
+  offscreen: true,
+  scale: 6,
+  // physics settings that must be set - defaults are buggy
+  throwForce: 5,
+  gravity: 1,
+  mass: 1,
+  spinForce: 6,
 });
 
 
-// 2. The code to make them roll
-async function rollDice() {
-  await Box.init(); // Wait for 3D models to load
-  const results = await Box.roll("1d6"); // Roll 1 six-sided die
-  console.log("You rolled a:", results.value); // FIXED result reference
-}
+Box.init().then(async (world) => {
+  Box.roll(["4d20", "4d12", "4d10", "4d8", "4d6", "4d4"]);
+});
 
-// 3. Trigger it (example: when your button is clicked)
-document.getElementById('diceButton').addEventListener('click', rollDice);
 
-    
+
+
 document.querySelector("body").style.backgroundColor = "blue";
 
 
@@ -32,52 +46,26 @@ var actionButtons = {
 }
 
 ///Use this to apply to stats. 
-var dice = {
-standardDice: [4, 6, 8, 10, 12, 20],
-
-}
+const standardDice = ["d4", "d6", "d8", "d10", "d12", "d20"];
 
 
-//function getDiceCombo(min, max) {
-//     const gap = max - min;
-    
-//     // Standard Industry Dice
-//     const 
-    
-//     // 1. Find the best die type to cover the gap
-//     let dieType = standardDice.find(d => d <= gap) || 4;
-    
-//     // 2. How many dice do we need? 
-//     // We divide by (dieType - 1) because the range of a die roll is (Max - 1)
-//     let numDice = Math.floor(gap / (dieType - 1));
-    
-//     // 3. What is the static modifier?
-//     // Since the lowest roll is (numDice * 1), we subtract that from our target Min
-//     let modifier = min - numDice;
-    
-//     return {
-//         numDice: numDice,
-//         dieType: dieType,
-//         modifier: modifier
-//     };
-// }
-//let finalDamage = Math.min(rolledTotal + modifier, max);
+// 1. Target the element
+const myElement = document.getElementById("your-id-here");
 
-//console.log(getDiceCombo(10,23));
-
-
-// Example: 10 to 30
-// Result: { numDice: 2, dieType: 10, modifier: 8 } -> 8 + 2d1
-
-
+// 2. Set the content
+myElement.innerHTML = "Your New HTML or Text Here";
 
 
 var stats = {
     slainCount: 0,
+    slainCountElement: document.getElementById("slainCount").innerHTML,
+    goldCount: 0,
+    goldCountElement: document.getElementById("goldCount").innerHTML,
     playerHealth: 0,
+    slainCountElement: document.getElementById("slainCount").innerHTML,
     enemyHealth: 0,
     playerBaseDamage: 0,
-    playerdie: 4,
+    playerdie: 0, ///Index to access for roll from standard dice
     enemyDamage: 0,
     
     upgradeDie: function(){
@@ -95,7 +83,7 @@ var stats = {
 
 ///Listens for the action button to be pressed
 actionButtons.attackBtn.addEventListener('click', function() {
-
+     Box.roll(["4d20", "4d12", "4d10", "4d8", "4d6", "4d4"]);
     console.log("Button clicked! Attack");
 
 });
@@ -108,6 +96,7 @@ actionButtons.healBtn.addEventListener('click', function() {
 
 //listens for the dice roll button to be pressed.
 actionButtons.diceRollBtn.addEventListener('click', function() {
+     Box.roll(["4d20", "4d12", "4d10", "4d8", "4d6", "4d4"]);
     console.log("Button clicked! Dice Roll");
 });
 
