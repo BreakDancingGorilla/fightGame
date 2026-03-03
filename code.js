@@ -49,11 +49,6 @@ var actionButtons = {
 const standardDice = ["d4", "d6", "d8", "d10", "d12", "d20"];
 
 
-// 1. Target the element
-const myElement = document.getElementById("your-id-here");
-
-// 2. Set the content
-myElement.innerHTML = "Your New HTML or Text Here";
 
 
 var stats = {
@@ -62,9 +57,12 @@ var stats = {
     goldCount: 0,
     goldCountElement: document.getElementById("goldCount").innerHTML,
     playerHealth: 0,
-    slainCountElement: document.getElementById("slainCount").innerHTML,
+    playerHealthElement: document.getElementById("playerHealth").innerHTML,
+    playerDamage: 0,
+    playerDamageElement: document.getElementById("playerDamage").innerHTML,
     enemyHealth: 0,
-    playerBaseDamage: 0,
+    playerDamageElement: document.getElementById("playerDamage").innerHTML,
+   
     playerdie: 0, ///Index to access for roll from standard dice
     enemyDamage: 0,
     
@@ -72,13 +70,16 @@ var stats = {
 
     },
 
+
+
+
     applyDamage: function(damageTo, damageFrom){
         this.damageTo -= this.damageFrom;
     },
 }
 
 
-
+        stats.goldCountElement = 55; 
 
 
 ///Listens for the action button to be pressed
