@@ -43,3 +43,99 @@
     enemyBox.init().then(async (world) => {
 
     });
+
+
+
+
+
+
+ dice.playerBox.roll(["1d20", "2d12"]);
+        let total = 0;
+
+        dice.playerBox.onRollComplete = (rollResult) => {
+            console.log(rollResult.length);
+            console.log(rollResult);
+            for (let i = 0; i < rollResult.length; i++) {
+                total += rollResult[i].value;
+            };
+            console.log(total);
+        };
+
+
+
+            ///1d4 + 1d6 + 1d8 + 1d10 + 1d12 + 1d20
+
+
+            onBeforeRoll
+
+
+
+            async function myMainFunction() {
+    // This pauses execution until the callback/object method finishes
+    const data = await myObject.getData(); 
+    
+    console.log(data); // Now you have the values!
+    // Continue your logic here
+}
+
+
+
+
+// Add 'async' here so you can use 'await' inside
+roll: async function (playerOrEnemy) {
+    var diceToRoll = [];
+    // ... (Your existing dice-building loop remains the same) ...
+
+    playerOrEnemy.value = 0;
+    this.rolling = true;
+
+    // 1. Create a Promise that resolves when the callback fires
+    const rollPromise = new Promise((resolve) => {
+        playerOrEnemy.Box.onRollComplete = (rollResult) => {
+            for (let i = 0; i < rollResult.length; i++) {
+                playerOrEnemy.value += rollResult[i].value;
+            }
+            this.rolling = false;
+            resolve(); // 2. This "unblocks" the await below
+        };
+    });
+
+    // 3. Trigger the roll
+    playerOrEnemy.Box.roll(diceToRoll);
+
+    // 4. Wait here until the promise is resolved
+    await rollPromise;
+
+    console.log("Roll is finished! Total value:", playerOrEnemy.value);
+    // Any code here will now run AFTER the dice stop moving
+}
+
+
+
+oll: async function (playerOrEnemy) {
+    var diceToRoll = [];
+    // ... (Your loop to build diceToRoll stays exactly the same) ...
+
+    playerOrEnemy.value = 0;
+    this.rolling = true;
+
+    // 1. Create the promise and set the listener FIRST
+    const rollPromise = new Promise((resolve) => {
+        playerOrEnemy.Box.onRollComplete = (rollResult) => {
+            for (let i = 0; i < rollResult.length; i++) {
+                playerOrEnemy.value += rollResult[i].value;
+            }
+            this.rolling = false; // Turn off the flag
+            resolve(); // This unblocks the 'await'
+        };
+    });
+
+    // 2. Trigger the roll ONLY ONCE here
+    playerOrEnemy.Box.roll(diceToRoll);
+
+    // 3. Pause this function until onRollComplete calls resolve()
+    await rollPromise;
+
+    console.log("Roll is finished! Total value:", playerOrEnemy.value);
+    return playerOrEnemy.value; // Return the value so the caller can use it
+},

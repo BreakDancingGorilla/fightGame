@@ -10,3 +10,5 @@ day 3
 For animations make a gif with a transpartent background and layer it over and postion it where it needs to be. 
 
 do both dice rolls at the same time. Player does damage first. Maybe roll dice on both sides. 
+
+let the player choose the color that will set the themeColor for the Box.
