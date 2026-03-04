@@ -1,0 +1,45 @@
+  let playerBox = new DiceBox({
+        assetPath: "assets/",
+        origin: "https://unpkg.com/@3d-dice/dice-box@1.1.3/dist/",
+        container: "#player-dice-box",
+        theme: "diceOfRolling",
+        themeColor: "#feea03",
+        externalThemes: {
+            diceOfRolling: "https://www.unpkg.com/@3d-dice/theme-dice-of-rolling@0.2.1",
+        },
+        offscreen: true,
+        scale: 6,
+        // physics settings that must be set - defaults are buggy
+        throwForce: 5,
+        gravity: 1,
+        mass: 1,
+        spinForce: 6,
+    });
+
+
+    playerBox.init().then(async (world) => {
+
+    });
+
+    let enemyBox = new DiceBox({
+        assetPath: "assets/",
+        origin: "https://unpkg.com/@3d-dice/dice-box@1.1.3/dist/",
+        container: "#enemy-dice-box",
+        theme: "diceOfRolling",
+        themeColor: "#feea03",
+        externalThemes: {
+            diceOfRolling: "https://www.unpkg.com/@3d-dice/theme-dice-of-rolling@0.2.1",
+        },
+        offscreen: true,
+        scale: 6,
+        // physics settings that must be set - defaults are buggy
+        throwForce: 5,
+        gravity: 1,
+        mass: 1,
+        spinForce: 6,
+    });
+
+
+    enemyBox.init().then(async (world) => {
+
+    });
