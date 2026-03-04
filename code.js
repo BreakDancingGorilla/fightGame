@@ -120,42 +120,9 @@ addEventListener("load", (event) => {
 
 
     }
-
-
-
-
-
-
     dice.init();
 
 
-
-    ///We need to write a function to get the dice amount.
-    ///Maybe let the player buy certain dice then 
-    ///add it to there inventory which we will roll.
-
-    //NOOOOO when you kill a enemy you take there dice
-    ///But then what will be use gold on?
-    ////Lets just stick to the simply die upgrade for now.
-
-    ///gold will be used to upgrade die (buy), health, heal chance, 
-    /// and base attack, 
-
-
-    //We can use the ai to figure out apporprate pricing
-    ///ratios.
-
-    ////The player can buy dice, not upgrade. 
-    ///The player will have an array of 6 numbers. 
-    ///each number representing that many dice.
-    ///1d4 + 1d6 + 1d8 + 1d10 + 1d12 + 1d20
-
-
-
-
-
-
-    document.querySelector("body").style.backgroundColor = "blue";
 
 
     var actionButtons = {
@@ -166,10 +133,6 @@ addEventListener("load", (event) => {
         healBtn: document.getElementById('healbutton'),
         diceRollBtn: document.getElementById('diceButton'),
     }
-
-    ///Use this to apply to stats. 
-    const standardDice = ["d4", "d6", "d8", "d10", "d12", "d20"];
-
 
 
 
@@ -243,7 +206,7 @@ addEventListener("load", (event) => {
         },
     }
 
-    console.log(stats.applyDamage(stats.enemy, stats.player));
+
 
 
 
@@ -257,35 +220,16 @@ addEventListener("load", (event) => {
 
 
 
-
     ///Listens for the heal button to be pressed
     actionButtons.healBtn.addEventListener('click', async function () {
         await dice.roll(dice.player);
-        console.log(dice.player.value);
-
-        /* dice.playerBox.onRollComplete = (rollResult) => {
-            console.log(rollResult.length);
-            console.log(rollResult);
-            for (let i = 0; i < rollResult.length; i++) {
-                total += rollResult[i].value;
-            };
-            console.log(total);
-        }; */
+        stats.enemy.updateHealth(stats.enemy.healthNum -= stats.player.damageNum += dice.player.value);
 
 
-        /*     playerBox.onRollComplete = (rollResult) => {
-        
-                for()
-        
-                total+= rollResult.value;
-                console.log(rollResult.value);
-                console.log('die result', rollResult);
-                  console.log(total);
-        
-            }; */
 
-        console.log("Button clicked! Heal");
-        // console.log("sdfds  " + total);
+
+
+
     });
 
     //listens for the dice roll button to be pressed.
@@ -294,20 +238,4 @@ addEventListener("load", (event) => {
         console.log("Button clicked! Dice Roll");
     });
 
-
-
-
-
-
-
-    ////add a event listener for when dice button is press and the other two.
-    //// If dice is pressed make sure one of the other buttons has been pressed. 
-
-
-
-
-
-
-
-    //For on load.
 });
