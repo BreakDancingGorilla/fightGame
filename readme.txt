@@ -21,3 +21,9 @@ Maybe different enemys have different dice or something idk.
 We going to do the dice thing. There is a random chance for a enemy to have a dice.
 
 Maybe make heal and attack dice. 
+
+day 4
+Using fantastic dice for static dice is not an option. For the dice menu options we will just take a good screenshot
+after physics to emulate the 3D and use that and use css for affects and stuff. For the number, just absolute postion a 
+rounded div or sum. Then when one of die is clicked roll it. Later we can also sell die for gold and maybe make that,
+the only way to get gold!!!!!! That is a golden idea. That way you have to trade in your die to upgrade your charater. 
