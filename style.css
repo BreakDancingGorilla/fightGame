@@ -12,6 +12,26 @@ html, body {
 }
 
 
+#diceTesting {
+    position: absolute;
+}
+
+#testing-dice-box {
+    width: 200px;
+    height: 200px;
+  background-image: url(/public/assets/woodgrain2.jpg);
+  background-size: cover;
+  pointer-events: none; 
+  z-index: 1;
+}
+
+#testing-dice-box canvas {
+    pointer-events: none; 
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
 h1, h2, p {
     z-index: 9999;
 }

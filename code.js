@@ -7,6 +7,31 @@ addEventListener("load", (event) => {
     var dice = {
 
 
+        test: {
+
+            Box: new DiceBox({
+                assetPath: "assets/",
+                origin: "https://unpkg.com/@3d-dice/dice-box@1.1.3/dist/",
+                container: "#testing-dice-box",
+                theme: "default",
+                themeColor: "#e26772",
+                externalThemes: {
+                    diceOfRolling: "https://www.unpkg.com/@3d-dice/theme-dice-of-rolling@0.2.1",
+                },
+                offscreen: true,
+                scale: 10,
+                // physics settings that must be set - defaults are buggy
+                throwForce: 0,
+                gravity: 0,
+                friction: 1,
+                settleTimeout: 0,
+                mass: 0,
+                spinForce: 0,
+            }),
+
+
+        },
+
         player: {
 
             Box: new DiceBox({
@@ -125,16 +150,59 @@ addEventListener("load", (event) => {
 
 
 
-        init: function () {
-            this.player.Box.init();
-            this.enemy.Box.init();
-        },
-
-
-
-
+      init: async function () {
+    try {
+        await Promise.all([
+            this.player.Box.init(),
+            this.enemy.Box.init(),
+            this.test.Box.init()
+        ]);
+        this.initialized = true; // Set a flag
+        console.log("Dice boxes ready");
+    } catch (e) {
+        console.error("Dice-Box failed to load:", e);
     }
-    dice.init();
+},
+
+
+
+
+    };
+
+    
+(async () => {
+    try {
+        // 1. Wait for all 3 dice boxes to finish loading assets
+        await dice.init(); 
+        
+
+
+
+
+
+
+dice.test.Box.add("1d20", {
+    // 1. POSITION LOCK: Set all coordinates to the same point
+    position: { x: 0, y: 0, z: 0 }, 
+    target: { x: 0, y: 0, z: 0 },   
+    origin: { x: 0, y: 0, z: 0 },   
+
+    // 2. KILL THE RANDOMIZER: This stops the random spawn location
+    random: false,           
+
+    // 3. ZERO MOTION: No initial push or "flick"
+    velocity: { x: 0, y: 0, z: 0 }, 
+    angularVelocity: { x: 0, y: 0, z: 0 }, 
+    throwForce: 0,           
+    startingHeight: 0,       
+
+    // 4. PHYSICS FREEZE: Mass 0 makes it "kinematic" (unmovable)
+    mass: 0,                
+    gravity: 0,             
+    suspendSimulation: true, 
+    settleTimeout: 0,        
+    rotation: { x: 0, y: 0, z: 0 } // '20' facing up
+});
 
 
 
@@ -348,5 +416,8 @@ addEventListener("load", (event) => {
         playerBox.roll(["4d20", "4d12", "4d10", "4d8", "4d6", "4d4"]);
         console.log("Button clicked! Dice Roll");
     });
-
+    } catch (err) {
+        console.error("Initialization failed:", err);
+    }
+})();
 });
