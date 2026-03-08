@@ -5,6 +5,11 @@ html, body {
     overflow: hidden; 
 }
 
+#cover {
+    
+}
+
+
 .row {
     display: flex;
     flex-direction: row;
